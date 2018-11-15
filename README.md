@@ -55,3 +55,50 @@ Documentation: Swagger/ Postman collection
 
 Testing: JEST, Pupperter
 
+### API Route
+
+-----
+
+✓ [GET] /enterprise
+
+✓ [POST] /enterprise {name: '', contact: { name: '', email: '', phone: '' }}
+✓ [GET] /enterprise/:id
+✓ [DELETE] /enterprise/:id
+✓ [PATCH] /enterprise/:id {...}
+
+-----
+
+✗ [GET] /user
+
+✗ [POST] /user {name: '', email: '', phone: '' }
+✗ [GET] /user/:id
+✗ [DELETE] /user/:id
+✗ [PATCH] /user/:id {...}
+
+-----
+
+✗ [GET] /project
+
+✗ [POST] /project {name: '', description: '' }
+✗ [GET] /project/:id
+✗ [DELETE] /project/:id
+✗ [PATCH] /project/:id {...}
+
+-----
+
+✗ [GET] /tree
+
+✗ [POST] /tree {enterpriseId: '', projectId: '', userId: '', count: 1 }
+✗ [GET] /tree/:id
+✗ [DELETE] /tree/:id
+✗ [PATCH] /tree/:id {...}
+
+-----
+
+✗ [GET] /report
+
+✗ [POST] /report
+✗ [GET] /report/:enterpriseId/:date
+✗ [DELETE] /tree/:enterpriseId/:date
+
+-----

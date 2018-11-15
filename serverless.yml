@@ -4,7 +4,11 @@ plugins:
 service: my-digitalhumani
 
 custom:
-  tableName: 'cie-table-${self:provider.stage}'
+  enterpriseTable: 'di-enterprise-${self:provider.stage}'
+  projectTable: 'di-project-${self:provider.stage}'
+  userTable: 'di-user-${self:provider.stage}'
+  treeTable: 'di-tree-${self:provider.stage}'
+  reportTable: 'di-report-${self:provider.stage}'
 
 provider:
   name: aws
@@ -21,9 +25,17 @@ provider:
       - dynamodb:UpdateItem
       - dynamodb:DeleteItem
      Resource:
+      - { "Fn::GetAtt": [ "EnterpriseDynamoDBTable", "Arn" ] }
+      - { "Fn::GetAtt": [ "ProjectDynamoDBTable", "Arn" ] }
+      - { "Fn::GetAtt": [ "UserDynamoDBTable", "Arn" ] }
       - { "Fn::GetAtt": [ "TreeDynamoDBTable", "Arn" ] }
+      - { "Fn::GetAtt": [ "ReportDynamoDBTable", "Arn" ] }
   environment:
-   TREE_TABLE: ${self:custom.tableName}
+    ENTERPRISE_TABLE: ${self:custom.enterpriseTable}
+    PROJECT_TABLE: ${self:custom.projectTable}
+    USER_TABLE: ${self:custom.userTable}
+    TREE_TABLE: ${self:custom.treeTable}
+    REPORT_TABLE: ${self:custom.reportTable}
 
 functions:
   app:
@@ -34,18 +46,78 @@ functions:
 
 resources:
   Resources:
+    EnterpriseDynamoDBTable:
+      Type: 'AWS::DynamoDB::Table'
+      Properties:
+        AttributeDefinitions:
+         -
+          AttributeName: id
+          AttributeType: S
+        KeySchema:
+         -
+          AttributeName: id
+          KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+        TableName: ${self:custom.enterpriseTable}
+    ProjectDynamoDBTable:
+      Type: 'AWS::DynamoDB::Table'
+      Properties:
+        AttributeDefinitions:
+         -
+          AttributeName: id
+          AttributeType: S
+        KeySchema:
+         -
+          AttributeName: id
+          KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+        TableName: ${self:custom.projectTable}
+    UserDynamoDBTable:
+      Type: 'AWS::DynamoDB::Table'
+      Properties:
+        AttributeDefinitions:
+         -
+          AttributeName: id
+          AttributeType: S
+        KeySchema:
+         -
+          AttributeName: id
+          KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+        TableName: ${self:custom.userTable}
     TreeDynamoDBTable:
       Type: 'AWS::DynamoDB::Table'
       Properties:
         AttributeDefinitions:
          -
-          AttributeName: cieId
+          AttributeName: uuid
           AttributeType: S
         KeySchema:
          -
-          AttributeName: cieId
+          AttributeName: uuid
           KeyType: HASH
         ProvisionedThroughput:
           ReadCapacityUnits: 1
           WriteCapacityUnits: 1
-        TableName: ${self:custom.tableName}
+        TableName: ${self:custom.treeTable}
+    ReportDynamoDBTable:
+      Type: 'AWS::DynamoDB::Table'
+      Properties:
+        AttributeDefinitions:
+         -
+          AttributeName: id
+          AttributeType: S
+        KeySchema:
+         -
+          AttributeName: id
+          KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+        TableName: ${self:custom.reportTable}
