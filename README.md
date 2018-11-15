@@ -68,21 +68,21 @@ Testing: JEST, Pupperter
 
 -----
 
-✗ [GET] /user
+✓ [GET] /user
 
-✗ [POST] /user {name: '', email: '', phone: '' }
-✗ [GET] /user/:id
-✗ [DELETE] /user/:id
-✗ [PATCH] /user/:id {...}
+✓ [POST] /user {name: '', email: '', phone: '' }
+✓ [GET] /user/:id
+✓ [DELETE] /user/:id
+✓ [PATCH] /user/:id {...}
 
 -----
 
-✗ [GET] /project
+✓ [GET] /project
 
-✗ [POST] /project {name: '', description: '' }
-✗ [GET] /project/:id
-✗ [DELETE] /project/:id
-✗ [PATCH] /project/:id {...}
+✓ [POST] /project {name: '', description: '' }
+✓ [GET] /project/:id
+✓ [DELETE] /project/:id
+✓ [PATCH] /project/:id {...}
 
 -----
 
