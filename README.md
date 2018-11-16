@@ -86,19 +86,18 @@ Testing: JEST, Pupperter
 
 -----
 
-✗ [GET] /tree
+✓ [GET] /tree
 
-✗ [POST] /tree {enterpriseId: '', projectId: '', userId: '', count: 1 }
-✗ [GET] /tree/:id
-✗ [DELETE] /tree/:id
-✗ [PATCH] /tree/:id {...}
+✓ [POST] /tree {enterpriseId: '', projectId: '', userId: '', treeCount: 1 }
+✓ [GET] /tree/:uuid
+✓ [DELETE] /tree/:uuid
 
 -----
 
-✗ [GET] /report
+✓ [GET] /report
+✓ [GET] /report/enterprise/:enterpriseId/
+✓ [GET] /report/enterprise/:enterpriseId/:monthDate
 
-✗ [POST] /report
-✗ [GET] /report/:enterpriseId/:date
-✗ [DELETE] /tree/:enterpriseId/:date
+✗ [POST] /report/generate
 
 -----

@@ -4,11 +4,11 @@ plugins:
 service: my-digitalhumani
 
 custom:
-  enterpriseTable: 'di-enterprise-${self:provider.stage}'
-  projectTable: 'di-project-${self:provider.stage}'
-  userTable: 'di-user-${self:provider.stage}'
-  treeTable: 'di-tree-${self:provider.stage}'
-  reportTable: 'di-report-${self:provider.stage}'
+  enterpriseTable: '${self:provider.stage}-enterprise'
+  projectTable: '${self:provider.stage}-project'
+  userTable: '${self:provider.stage}-user'
+  treeTable: '${self:provider.stage}-tree'
+  reportTable: '${self:provider.stage}-report'
 
 provider:
   name: aws
@@ -111,12 +111,18 @@ resources:
       Properties:
         AttributeDefinitions:
          -
-          AttributeName: id
+          AttributeName: enterpriseId
+          AttributeType: S
+         -
+          AttributeName: monthDate
           AttributeType: S
         KeySchema:
          -
-          AttributeName: id
+          AttributeName: enterpriseId
           KeyType: HASH
+         -
+          AttributeName: monthDate
+          KeyType: RANGE
         ProvisionedThroughput:
           ReadCapacityUnits: 1
           WriteCapacityUnits: 1
