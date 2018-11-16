@@ -1,0 +1,165 @@
+<html>
+
+<head>
+  <meta charset="utf-8">
+
+  <!-- JQuery -->
+  <script
+    src="https://code.jquery.com/jquery-3.3.1.min.js"
+    integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+    crossorigin="anonymous">
+  </script>
+    
+  <!-- JQuery UI -->
+  <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <script
+    src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
+    integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="
+    crossorigin="anonymous">
+  </script>
+
+  <!-- Bootstrap -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+    integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+    crossorigin="anonymous">
+  </script>
+  <script
+     src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+     integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+     crossorigin="anonymous">
+  </script>
+
+  <!-- Main -->
+  <script>
+    console.log('zut...')
+    var base = "https://n8e12iw5gd.execute-api.ca-central-1.amazonaws.com/dev"
+    $(function() {
+      $("#tabs").tabs({
+        active: 0
+      });
+      $("#accordion").accordion({
+        active: 1,
+        heightStyle: "content",
+        collapsible: true,
+      });
+
+      $("#get-enterprise-req").click(function (event) {
+        console.log('but...');
+        $.get(base + '/enterprise', function (res) {
+          console.log(res);
+          $("#get-enterprise-res").html(JSON.stringify(res, null, 2));
+        });
+      });
+
+      $("#post-enterprise-req").click(function (ev) {
+        console.log('but...');
+
+        var payload = {
+          name: 'Big shop',
+          contact: {
+            name: 'Bob'
+          }
+        }
+
+        $.ajax({
+          type: "POST",
+          url: base + '/enterprise',
+          data: JSON.stringify(payload),
+          contentType: "application/json",
+          success: function (data) {
+            $("#post-enterprise-res").text(JSON.stringify(data, null, 2));
+          },
+        });
+      });
+    });
+  </script>
+
+</head>
+
+<body>
+
+  <h1>Digital Humani API</h1>
+
+  <h2>Planter un arbre</h2>
+
+  <h2>Nombre d'arbre per month</h2>
+
+  <h2>Monthly report</h2>
+
+<div id="tabs">
+  <ul>
+    <li><a href="#tabs-1">Enterprise</a></li>
+    <li><a href="#tabs-2">User</a></li>
+    <li><a href="#tabs-3">Project</a></li>
+    <li><a href="#tabs-4">Tree</a></li>
+    <li><a href="#tabs-5">Report</a></li>
+  </ul>
+  <div id="tabs-1">
+
+    <p>Enterprise-top</p>
+
+    <div id="accordion">
+      <h3>[GET] /enterprise</h3>
+      <div>
+        <dl>
+          <dt>Request:</dt>
+          <dd><button id="get-enterprise-req">[GET] http://digitalhumani.com/enterprise</button></dd>
+
+          <dt>Response:</dt>
+          <dd><pre id="get-enterprise-res">JSON Response</pre></dd>
+        </dl>
+      </div>
+
+      <h3>[POST] /enterprise</h3>
+      <div>
+        <dl>
+          <dt>Request:</dt>
+          <dd><button id="post-enterprise-req">[POST] http://digitalhumani.com/enterprise</button></dd>
+
+          <dt>Response:</dt>
+          <dd><pre id="post-enterprise-res">JSON Response</pre></dd>
+        </dl>
+      </div>
+
+      <h3>[GET] /enterprise/<em>:enterpriseId</em></h3>
+      <div>
+        <p>
+    suscipit faucibus urna.
+        </p>
+      </div>
+      <h3>[DELETE] /enterprise/<em>:enterpriseId</em></h3>
+      <div>
+        <p>
+    suscipit faucibus urna.
+        </p>
+      </div>
+      <h3>[PATCH] /enterprise/<em>:enterpriseId</em></h3>
+      <div>
+        <p>
+    suscipit faucibus urna.
+        </p>
+      </div>
+    </div>
+
+    <p>Enterprise-bottom</p>
+
+  </div>
+  <div id="tabs-2">
+    <p>User</p>
+  </div>
+  <div id="tabs-3">
+    <p>Project</p>
+  </div>
+  <div id="tabs-4">
+    <p>Tree</p>
+  </div>
+  <div id="tabs-5">
+    <p>Report</p>
+  </div>
+</div>
+
+</body>
+
+</html>

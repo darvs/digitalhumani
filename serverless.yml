@@ -1,5 +1,6 @@
 plugins:
  - serverless-offline
+ - serverless-finch
 
 service: my-digitalhumani
 
@@ -9,6 +10,8 @@ custom:
   userTable: '${self:provider.stage}-user'
   treeTable: '${self:provider.stage}-tree'
   reportTable: '${self:provider.stage}-report'
+  client:
+      bucketName: digitalhumani.com
 
 provider:
   name: aws

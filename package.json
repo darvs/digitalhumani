@@ -12,6 +12,7 @@
     "aws-sdk": "^2.356.0",
     "body-parser": "^1.18.3",
     "express": "^4.16.4",
+    "serverless-finch": "^2.3.2",
     "serverless-http": "^1.8.0",
     "uuid": "^3.3.2"
   },

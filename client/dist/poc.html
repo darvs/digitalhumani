@@ -1,0 +1,96 @@
+<html>
+<script>
+ 
+function getCount() {
+    var payload = {
+	requestedDate: document.getElementById('num_1').value,
+	reforestationCompanyID:  document.getElementById('num_2').value,
+	reforestationProjectID: document.getElementById('num_3').value,
+	endUserID: document.getElementById('num_4').value,
+        enterpriseID: document.getElementById('num_5').value,
+    };
+
+    var xhttp = new XMLHttpRequest();
+
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+        document.getElementById("count").innerHTML = this.responseText;
+        }
+    };
+    
+    xhttp.open("GET", "https://d0nh8xtty6.execute-api.ca-central-1.amazonaws.com/dev/jogetnumbertrees", true);
+    xhttp.setRequestHeader("Content-type", "application/json");
+    xhttp.send(JSON.stringify(payload));
+}  
+
+function myFunction() {
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+        document.getElementById("my-demo").innerHTML = this.responseText;
+        }
+    };
+    
+    var valeur1 = document.getElementById('num_1').value;
+    var valeur2 = document.getElementById('num_2').value;
+    var valeur3 = document.getElementById('num_3').value;
+    var valeur4 = document.getElementById('num_4').value;
+    var valeur5 = document.getElementById('num_5').value;    
+    var html = 'Information recue: ' + valeur1 + ' ' + valeur2 + ' ' + valeur3 + ' ' + valeur4 + ' ' + valeur5;
+    var html2 = 'Thank you! A tree will be planted in Southern Ethiopia!'; 
+    document.getElementById('result').innerHTML = html;
+    document.getElementById('result2').innerHTML = html2;
+    
+    
+    xhttp.open("POST", "https://8t6xt1fveg.execute-api.ca-central-1.amazonaws.com/Dev/JoAddTree", true);
+    xhttp.setRequestHeader("Content-type", "application/json");
+    xhttp.send(JSON.stringify({requestedDate:valeur1, reforestationCompanyID:valeur2, reforestationProjectID:valeur3, endUserID:valeur4, enterpriseID:valeur5}));
+}  
+    
+  document.addEventListener("DOMContentLoaded", function(event) {
+    var d = new Date();
+    var s = d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate();
+    document.getElementById("num_1").value = s;
+  });
+</script>    
+
+<body><div align="center">
+<h1>Tree Planting API Proof of concept</h1>
+<hr>
+<h2>Plant a Tree</h2>
+
+<label for="start">Start date:</label>
+<input readonly id="num_1" type="date"><br>
+
+Reforestation Company ID : <input id="num_2" VALUE="9" disabled><br>
+Reforestation Project ID : <input id="num_3"><br>
+End User ID : <input id="num_4"><br>
+Company ID : <input id="num_5"><br>
+        
+
+    
+ <button onClick="myFunction()">Plant Tree</button><br>   
+ <button onClick="getCount()">Count Tree</button><br>   
+  
+<div id="result"></div>    
+ <hr>
+<font color="green"><b><div id="result2"></div></b></font>    
+ <hr>
+
+<h2>Number of trees planted for your company (Company ID)</h2> 
+<div id="count">Count???</div>
+ <hr> 
+<h3>Version <span id="my-demo">0.01</span></h3>
+
+<hr>
+HTTP Request (GET): <pre>https://d0nh8xtty6.execute-api.ca-central-1.amazonaws.com/dev/jogetnumbertrees?requestedDate=1234</pre>
+HTTP Response (JSON): <pre>3</pre>
+
+<hr>
+HTTP Request (POST): <pre>https://d0nh8xtty6.execute-api.ca-central-1.amazonaws.com/dev/joaddtree?requestedDate=1234</pre>
+HTTP Response (JSON): <pre>{}</pre>
+    
+
+
+</body>
+</html>

@@ -25,6 +25,7 @@ FIXME: Lamda are limited to Node.js 8.10, maybe we should use this version inste
 ## Deploy
 
     > sls deploy
+    > sls client deploy    # Web page on S3 only
 
 ## Testing
 
@@ -56,6 +57,9 @@ Documentation: Swagger/ Postman collection
 Testing: JEST, Pupperter
 
 ### API Route
+
+TODO: Add JSONP
+TODO: Allow POST to work with contentType: 'application/x-www-form-urlencoded' or 'multipart/form-data'
 
 -----
 
