@@ -12,6 +12,7 @@ Then, install latest Node.js LTS Dubnium (10.x) - End-of-life April 2020
     > nvm alias default lts/dubnium
 
 FIXME: Lamda are limited to Node.js 8.10, maybe we should use this version instead of latest LTS.
+FIXME: Do load test to validate DynamoDB choice
 
 ## Install dependency
 
@@ -74,8 +75,7 @@ TODO: Allow POST to work with contentType: 'application/x-www-form-urlencoded' o
 
 ✓ [POST] /enterprise {name: '', contact: { name: '', email: '', phone: '' }}
 ✓ [GET] /enterprise/:id
-✗ [GET] /enterprise/:id/treeCount
-✗ [GET] /enterprise/:id/treeCount/:monthDate
+✓ [GET] /enterprise/:id/treeCount/:monthDate
 ✓ [DELETE] /enterprise/:id
 ✓ [PATCH] /enterprise/:id {...}
 

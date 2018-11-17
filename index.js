@@ -578,6 +578,65 @@ app.get('/enterprise/:id', (req, res) => {
     }
 })
 
+app.get('/enterprise/:enterpriseId/treeCount/:monthDate', (req, res) => {
+    const enterpriseId = req.params.enterpriseId.toLowerCase()
+    const { monthDate } = req.params
+
+    if (!enterpriseId.match(/^[0-9a-f]{8}$/)) {
+        res.status(400).json({message: `The "enterpriseId" must be 8 hex digit string. Got "${enterpriseId}" instead.`})
+    } else if (!monthDate.match(/^\d{4}-\d{2}$/)) {
+        res.status(400).json({message: `Required "month date" format is YYYY-MM. Got "${monthDate}" instead.`})
+    } else {
+        const TableName = TREE_TABLE
+        const IndexName = 'myGSI'
+
+        const query = {
+            enterpriseId,
+        }
+
+        const KeyConditionExpression =
+            Object.keys(query).map(x => `#${x[0]} = :${x[0]}`).join()
+            + ' and begins_with(created, :dt)'
+
+        // { "#n": "name" }
+        const ExpressionAttributeNames = Object
+            .keys(query)
+            .map(x => ({ [`#${x[0]}`] : x }))
+            .reduce((x, acc) => Object.assign(acc, x), {})
+
+        // { ":n": "John" }
+        const ExpressionAttributeValues = Object
+            .keys(query)
+            .map(x => ({ [`:${x[0]}`] : query[x] }))
+            .concat({':dt': monthDate}) // Ex. '2018-11'
+            .reduce((x, acc) => Object.assign(acc, x), {})
+
+        dynamoDb.query(
+            {
+                TableName,
+                IndexName,
+                KeyConditionExpression,
+                ExpressionAttributeNames,
+                ExpressionAttributeValues,
+            },
+            (error, result) => {
+                if (error) {
+                    log(error)
+                    res.status(400).json({error, message: `Can not query Tree table with Enterprise id "${enterpriseId}"`})
+                } else {
+                    const count =
+                        result
+                        .Items
+                        .map(x => x.treeCount)
+                        .reduce((acc, x) => acc + x, 0)
+
+                    res.json({count})
+                }
+            }
+        )
+    }
+})
+
 app.delete('/enterprise/:id', (req, res) => {
     const id = req.params.id.toLowerCase()
 
