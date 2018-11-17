@@ -101,6 +101,12 @@ resources:
          -
           AttributeName: uuid
           AttributeType: S
+         -
+          AttributeName: enterpriseId
+          AttributeType: S
+         -
+          AttributeName: created
+          AttributeType: S
         KeySchema:
          -
           AttributeName: uuid
@@ -109,6 +115,23 @@ resources:
           ReadCapacityUnits: 1
           WriteCapacityUnits: 1
         TableName: ${self:custom.treeTable}
+        GlobalSecondaryIndexes:
+         -
+          IndexName: "myGSI"
+          KeySchema:
+           -
+            AttributeName: enterpriseId
+            KeyType: HASH
+           -
+            AttributeName: created
+            KeyType: RANGE
+          Projection:
+            NonKeyAttributes:
+              - "treeCount"
+            ProjectionType: "INCLUDE"
+          ProvisionedThroughput:
+            ReadCapacityUnits: 1
+            WriteCapacityUnits: 1
     ReportDynamoDBTable:
       Type: 'AWS::DynamoDB::Table'
       Properties:

@@ -33,6 +33,13 @@ FIXME: Lamda are limited to Node.js 8.10, maybe we should use this version inste
     > curl -H "Content-Type: application/json" -X POST ${BASE}/cie -d '{"cieId": "A1", "cieName": "XYZ"}'
     > curl -X GET ${BASE}/cie/A1
 
+## Fixture
+
+   To init DynamoDB table with some fixture
+
+   > cd fixture
+   > ./go.sh
+
 ## Offline Testing
 
     > sls offline start
@@ -67,6 +74,8 @@ TODO: Allow POST to work with contentType: 'application/x-www-form-urlencoded' o
 
 ✓ [POST] /enterprise {name: '', contact: { name: '', email: '', phone: '' }}
 ✓ [GET] /enterprise/:id
+✗ [GET] /enterprise/:id/treeCount
+✗ [GET] /enterprise/:id/treeCount/:monthDate
 ✓ [DELETE] /enterprise/:id
 ✓ [PATCH] /enterprise/:id {...}
 

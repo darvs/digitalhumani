@@ -9,7 +9,7 @@
   "author": "Sébastien Cabot",
   "license": "MIT",
   "dependencies": {
-    "aws-sdk": "^2.356.0",
+    "aws-sdk": "^2.358.0",
     "body-parser": "^1.18.3",
     "express": "^4.16.4",
     "serverless-finch": "^2.3.2",

@@ -1,0 +1,72 @@
+{
+  "enterprise": [
+    { "name": "Me",  "id": "1234abcd", "contact": { "name": "Alice" }, "created": "2018-11-17T09:08:00.725Z" },
+    { "name": "You", "id": "11111111", "contact": { "name": "Bob" }, "created": "2018-11-17T09:07:00.725Z" }
+  ],
+  "project": [
+    { "name": "Amazonie",  "id": "12121212", "created": "2018-11-17T09:06:00.725Z" },
+    { "name": "Groendlan", "id": "23232323", "created": "2018-11-17T09:05:00.725Z" }
+  ],
+  "user": [
+    { "name": "Alice",  "id": "11111111", "created": "2018-11-17T09:04:00.725Z" },
+    { "name": "Bob",    "id": "22222222", "created": "2018-11-17T09:03:00.725Z" }
+  ],
+  "tree": [
+    {
+      "uuid": "01008888-9e2b-4d25-9d82-bbf4a7cc4851",
+      "created": "2018-10-17T09:08:04.725Z",
+      "enterpriseId": "1234abcd",
+      "projectId":    "12121212",
+      "userId":       "22222222",
+      "treeCount": 8
+    },
+    {
+      "uuid": "81288888-9e2b-4d25-9d82-bbf4a7cc4851",
+      "created": "2018-10-17T09:08:04.725Z",
+      "enterpriseId": "11111111",
+      "projectId":    "12121212",
+      "userId":       "22222222",
+      "treeCount": 8
+    },
+    {
+      "uuid": "912d9e67-9e2b-4d25-9d82-bbf4a7cc4851",
+      "created": "2018-11-17T09:09:04.725Z",
+      "enterpriseId": "11111111",
+      "projectId":    "12121212",
+      "userId":       "22222222",
+      "treeCount": 2
+    },
+    {
+      "uuid": "112d1e61-9e2b-4d25-9d82-11f4a7cc9999",
+      "created": "2018-11-17T09:09:05.725Z",
+      "enterpriseId": "1234abcd",
+      "projectId":    "12121212",
+      "userId":       "22222222",
+      "treeCount": 1
+    },
+    {
+      "uuid": "111d9e67-9e2b-4d25-9d82-bbf4a7cc4851",
+      "created": "2018-11-17T09:18:04.725Z",
+      "enterpriseId": "11111111",
+      "projectId":    "12121212",
+      "userId":       "22222222",
+      "treeCount": 2
+    },
+    {
+      "uuid": "777d1e61-9e2b-4d25-9d82-11f4a7cc9999",
+      "created": "2018-11-17T05:08:05.725Z",
+      "enterpriseId": "11111111",
+      "projectId":    "12121212",
+      "userId":       "22222222",
+      "treeCount": 1
+    },
+    {
+      "uuid": "22781e61-9e2b-4d25-9d82-11f4a7cc9999",
+      "created": "2018-11-17T03:08:05.725Z",
+      "enterpriseId": "11111111",
+      "projectId":    "12121212",
+      "userId":       "22222222",
+      "treeCount": 1
+    }
+  ]
+}
