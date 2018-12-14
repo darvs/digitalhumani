@@ -40,10 +40,10 @@ Go to http://digitalhumani.com.s3-website.ca-central-1.amazonaws.com/index.html.
 
 ## Fixture
 
-   To init DynamoDB table with some fixture
+To init DynamoDB table with some fixture
 
-   > cd fixture
-   > ./go.sh
+    > cd fixture
+    > ./go.sh
 
 ## Offline Testing
 
