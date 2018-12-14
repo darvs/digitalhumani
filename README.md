@@ -4,7 +4,7 @@
 
 First, install nvm as describe here:
 
-    https://github.com/creationix/nvm
+    <https://github.com/creationix/nvm>
 
 Then, install latest Node.js LTS Dubnium (10.x) - End-of-life April 2020
 
