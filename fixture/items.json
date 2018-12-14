@@ -93,22 +93,6 @@
       "projectId":    "96666666",
       "userId":       "33333333",
       "treeCount": 1
-    },
-    {
-      "uuid": "246d1e61-9e2b-4d25-9d82-11f4a7cc9999",
-      "created": "2018-11-17T05:08:05.725Z",
-      "enterpriseId": "22222222",
-      "projectId":    "97777777",
-      "userId":       "33333333",
-      "treeCount": 1
-    },
-    {
-      "uuid": "21181e61-9e2b-4d25-9d82-11f4a7cc9999",
-      "created": "2018-11-17T03:08:05.725Z",
-      "enterpriseId": "33333333",
-      "projectId":    "98888888",
-      "userId":       "44444444",
-      "treeCount": 1
     }
   ]
 }
