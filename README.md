@@ -4,7 +4,7 @@
 
 First, install nvm as describe here:
 
-    <https://github.com/creationix/nvm>
+https://github.com/creationix/nvm
 
 Then, install latest Node.js LTS Dubnium (10.x) - End-of-life April 2020
 
@@ -36,7 +36,7 @@ FIXME: Do load test to validate DynamoDB choice
 
 ## Try frontend
 
-Go to `http://digitalhumani.com.s3-website.ca-central-1.amazonaws.com/index.html`.
+Go to http://digitalhumani.com.s3-website.ca-central-1.amazonaws.com/index.html.
 
 ## Fixture
 
