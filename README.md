@@ -25,14 +25,18 @@ FIXME: Do load test to validate DynamoDB choice
 
 ## Deploy
 
-    > sls deploy
-    > sls client deploy    # Web page on S3 only
+    > sls deploy           # Deploy backend (Lambda and DynamoDB)
+    > sls client deploy    # Deploy frontend (a Web page on S3)
 
-## Testing
+## Try backend
 
     > export BASE="https://g5lkwar2r1.execute-api.ca-central-1.amazonaws.com/dev"
-    > curl -H "Content-Type: application/json" -X POST ${BASE}/cie -d '{"cieId": "A1", "cieName": "XYZ"}'
-    > curl -X GET ${BASE}/cie/A1
+    > curl -H "Content-Type: application/json" -X POST ${BASE}/enterprise -d '{"name": "My shop", "contact": "John"}'
+    > curl -X GET ${BASE}/enterprise/abcd1234
+
+## Try frontend
+
+Go to `http://digitalhumani.com.s3-website.ca-central-1.amazonaws.com/index.html`.
 
 ## Fixture
 
@@ -45,28 +49,26 @@ FIXME: Do load test to validate DynamoDB choice
 
     > sls offline start
     > export BASE="http://localhost:3000"
-    > curl -H "Content-Type: application/json" -X POST ${BASE}/cie -d '{"cieId": "A123", "cieName": "ABC"}'
-    > curl -X GET ${BASE}/cie/A123
+    > curl -H "Content-Type: application/json" -X POST ${BASE}/enterprise -d '{"name": "My shop", "contact": "John"}'
+    > curl -X GET ${BASE}/enterprise/abcd1234
 
 ## Toolchain planning
 
-Still in progres...
+Dev tools: Node.js, git, (Suggestion: Visual Studio Code [editor], zsh [shell])
 
-Dev tools: Node.js, git, Visual Studio Code (editor), zsh (shell)
+Frontend: HTML Page with JQuery and Bootstrap
 
-Frontend: HTML Page with JQuery
-
-Backend: Lamda (processing in JavaScript), DynamoDB (Data persistency), API Gateway
+Backend: Lamda (processing in JavaScript), DynamoDB (Data persistency), API Gateway (manage by serverless)
 
 Backend management tool: serverless, awscli (sudo snap install AWS CLI --classic)
 
-Documentation: Swagger/ Postman collection
+TODO - Documentation: Swagger, Postman collection
 
-Testing: JEST, Pupperter
+TODO - Testing: JEST, Pupperter
 
 ### API Route
 
-TODO: Add JSONP
+TODO: Add JSONP capability (`jsonp` or `callback` param)
 TODO: Allow POST to work with contentType: 'application/x-www-form-urlencoded' or 'multipart/form-data'
 
 -----
