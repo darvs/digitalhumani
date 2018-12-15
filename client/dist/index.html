@@ -103,6 +103,26 @@
         <pre class="border border-primary p-2 mt-1 response d-none"></pre>
       </div>
 
+      <h3>GET /enterprise/<em>:enterpriseId</em>/treeCount/:monthDate</h3>
+      <div class="get-request" data-ref="/enterprise/:enterpriseId/treeCount/:monthDate">
+        <form class="param">
+            <div class="form-group" data-ref="enterpriseId">
+                <label for="fld-e08">Enterprise ID</label>
+                <input type="text" class="form-control" id="fld-e08" placeholder="8 hex digit">
+            </div>
+            <div class="form-group" data-ref="monthDate">
+                <label for="fld-e09">Month date</label>
+                <input type="text" class="form-control" id="fld-e09" placeholder="YYYY-MM">
+            </div>
+        </form>
+        <button type="button" class="btn btn-primary send">Send Request</button>
+        <button type="button" class="btn btn-warning clear d-none">Clear</button>
+        <div class="border border-primary p-2 mt-3 request d-none">
+          <div><code class="url text-primary"></code></div>
+        </div>
+        <pre class="border border-primary p-2 mt-1 response d-none"></pre>
+      </div>
+
       <h3>DELETE /enterprise/<em>:id</em></h3>
       <div class="delete-request" data-ref="/enterprise/:id">
         <form class="param">
