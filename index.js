@@ -4,7 +4,10 @@ const { log } = console
 // 3rd party lib
 const serverless = require('serverless-http')
 const bodyParser = require('body-parser')
+
 const express = require('express')
+const cors = require('cors')
+
 const AWS = require('aws-sdk')
 const { v4 } = require('uuid'); // ex. '3a017fc5-4f50-4db9-b0ce-4547ba0a1bfd' (uuid v4 is random)
 
@@ -15,6 +18,7 @@ const { ENTERPRISE_TABLE, PROJECT_TABLE, USER_TABLE, TREE_TABLE, REPORT_TABLE } 
 
 const dynamoDb = new AWS.DynamoDB.DocumentClient()
 
+app.use(cors())
 app.use(bodyParser.json({strict: false}))
 
 app.get('/', (req, res) => {

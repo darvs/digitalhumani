@@ -32,49 +32,7 @@
   </script>
 
   <!-- Main -->
-  <script>
-    console.log('zut...')
-    var base = "https://n8e12iw5gd.execute-api.ca-central-1.amazonaws.com/dev"
-    $(function() {
-      $("#tabs").tabs({
-        active: 0
-      });
-      $("#accordion").accordion({
-        active: 1,
-        heightStyle: "content",
-        collapsible: true,
-      });
-
-      $("#get-enterprise-req").click(function (event) {
-        console.log('but...');
-        $.get(base + '/enterprise', function (res) {
-          console.log(res);
-          $("#get-enterprise-res").html(JSON.stringify(res, null, 2));
-        });
-      });
-
-      $("#post-enterprise-req").click(function (ev) {
-        console.log('but...');
-
-        var payload = {
-          name: 'Big shop',
-          contact: {
-            name: 'Bob'
-          }
-        }
-
-        $.ajax({
-          type: "POST",
-          url: base + '/enterprise',
-          data: JSON.stringify(payload),
-          contentType: "application/json",
-          success: function (data) {
-            $("#post-enterprise-res").text(JSON.stringify(data, null, 2));
-          },
-        });
-      });
-    });
-  </script>
+  <script src="./main.js"></script>
 
 </head>
 
@@ -93,68 +51,418 @@
     <li><a href="#tabs-4">Tree</a></li>
     <li><a href="#tabs-5">Report</a></li>
   </ul>
+
   <div id="tabs-1">
 
-    <p>Enterprise-top</p>
-
-    <div id="accordion">
-      <h3>[GET] /enterprise</h3>
-      <div>
-        <dl>
-          <dt>Request:</dt>
-          <dd><button id="get-enterprise-req">[GET] http://digitalhumani.com/enterprise</button></dd>
-
-          <dt>Response:</dt>
-          <dd><pre id="get-enterprise-res">JSON Response</pre></dd>
-        </dl>
+    <!-- Enterprise section -->
+    <div class="accordion">
+      <h3>GET /enterprise</h3>
+      <div class="get-request" data-ref="/enterprise">
+        <button type="button" class="btn btn-primary send">Send Request</button>
+        <button type="button" class="btn btn-warning clear d-none">Clear</button>
+        <div class="border border-primary p-2 mt-3 request d-none">
+          <div><code class="url text-primary"></code></div>
+        </div>
+        <pre class="border border-primary p-2 mt-1 response d-none"></pre>
       </div>
 
-      <h3>[POST] /enterprise</h3>
-      <div>
-        <dl>
-          <dt>Request:</dt>
-          <dd><button id="post-enterprise-req">[POST] http://digitalhumani.com/enterprise</button></dd>
-
-          <dt>Response:</dt>
-          <dd><pre id="post-enterprise-res">JSON Response</pre></dd>
-        </dl>
+      <h3>POST /enterprise</h3>
+      <div class="post-request" data-ref="/enterprise">
+        <form class="payload">
+            <div class="form-group" data-ref="name">
+                <label for="fld-e01">Name</label>
+                <input type="text" class="form-control" id="fld-e01" placeholder="Text string">
+            </div>
+            <div class="form-group" data-ref="contact.name">
+                <label for="fld-e02">Contact Name</label>
+                <input type="text" class="form-control" id="fld-e02" placeholder="Text string">
+            </div>
+        </form>
+        <button type="button" class="btn btn-primary send">Send Request</button>
+        <button type="button" class="btn btn-warning clear d-none">Clear</button>
+        <div class="border border-primary p-2 mt-3 request d-none">
+          <div><code class="url text-primary"></code></div>
+          <div><code class="body text-info"></code></div>
+        </div>
+        <pre class="border border-primary p-2 mt-1 response d-none"></pre>
       </div>
 
-      <h3>[GET] /enterprise/<em>:enterpriseId</em></h3>
-      <div>
-        <p>
-    suscipit faucibus urna.
-        </p>
+      <h3>GET /enterprise/<em>:id</em></h3>
+      <div class="get-request" data-ref="/enterprise/:id">
+        <form class="param">
+            <div class="form-group" data-ref="id">
+                <label for="fld-e03">Enterprise ID</label>
+                <input type="text" class="form-control" id="fld-e03" placeholder="8 hex digit">
+            </div>
+        </form>
+        <button type="button" class="btn btn-primary send">Send Request</button>
+        <button type="button" class="btn btn-warning clear d-none">Clear</button>
+        <div class="border border-primary p-2 mt-3 request d-none">
+          <div><code class="url text-primary"></code></div>
+        </div>
+        <pre class="border border-primary p-2 mt-1 response d-none"></pre>
       </div>
-      <h3>[DELETE] /enterprise/<em>:enterpriseId</em></h3>
-      <div>
-        <p>
-    suscipit faucibus urna.
-        </p>
+
+      <h3>DELETE /enterprise/<em>:id</em></h3>
+      <div class="delete-request" data-ref="/enterprise/:id">
+        <form class="param">
+            <div class="form-group" data-ref="id">
+                <label for="fld-e04">Enterprise ID</label>
+                <input type="text" class="form-control" id="fld-e04" placeholder="8 hex digit">
+            </div>
+        </form>
+        <button type="button" class="btn btn-primary send">Send Request</button>
+        <button type="button" class="btn btn-warning clear d-none">Clear</button>
+        <div class="border border-primary p-2 mt-3 request d-none">
+          <div><code class="url text-primary"></code></div>
+        </div>
+        <pre class="border border-primary p-2 mt-1 response d-none"></pre>
       </div>
-      <h3>[PATCH] /enterprise/<em>:enterpriseId</em></h3>
-      <div>
-        <p>
-    suscipit faucibus urna.
-        </p>
+
+      <h3>PATCH /enterprise/<em>:id</em></h3>
+      <div class="patch-request" data-ref="/enterprise/:id">
+        <form class="payload">
+            <div class="form-group" data-ref="id">
+                <label for="fld-e05">Enterprise ID</label>
+                <input type="text" class="form-control" id="fld-e05" placeholder="8 hex digit">
+            </div>
+            <div class="form-group" data-ref="name">
+                <label for="fld-e06">Name</label>
+                <input type="text" class="form-control" id="fld-e06" placeholder="Text string">
+            </div>
+            <div class="form-group" data-ref="contact.name">
+                <label for="fld-e07">Contact Name</label>
+                <input type="text" class="form-control" id="fld-e07" placeholder="Text string">
+            </div>
+        </form>
+        <button type="button" class="btn btn-primary send">Send Request</button>
+        <button type="button" class="btn btn-warning clear d-none">Clear</button>
+        <div class="border border-primary p-2 mt-3 request d-none">
+          <div><code class="url text-primary"></code></div>
+          <div><code class="body text-info"></code></div>
+        </div>
+        <pre class="border border-primary p-2 mt-1 response d-none"></pre>
       </div>
     </div>
-
-    <p>Enterprise-bottom</p>
-
   </div>
+
   <div id="tabs-2">
-    <p>User</p>
+    <!-- User section -->
+
+    <div class="accordion">
+      <h3>GET /user</h3>
+      <div class="get-request" data-ref="/user">
+        <button type="button" class="btn btn-primary send">Send Request</button>
+        <button type="button" class="btn btn-warning clear d-none">Clear</button>
+        <div class="border border-primary p-2 mt-3 request d-none">
+          <div><code class="url text-primary"></code></div>
+        </div>
+        <pre class="border border-primary p-2 mt-1 response d-none"></pre>
+      </div>
+
+      <h3>POST /user</h3>
+      <div class="post-request" data-ref="/user">
+        <form class="payload">
+            <div class="form-group" data-ref="name">
+                <label for="fld-u01">Name</label>
+                <input type="text" class="form-control" id="fld-u01" placeholder="Text string">
+            </div>
+            <div class="form-group" data-ref="email">
+                <label for="fld-u02">email</label>
+                <input type="text" class="form-control" id="fld-u02" placeholder="Text string">
+            </div>
+        </form>
+        <button type="button" class="btn btn-primary send">Send Request</button>
+        <button type="button" class="btn btn-warning clear d-none">Clear</button>
+        <div class="border border-primary p-2 mt-3 request d-none">
+          <div><code class="url text-primary"></code></div>
+          <div><code class="body text-info"></code></div>
+        </div>
+        <pre class="border border-primary p-2 mt-1 response d-none"></pre>
+      </div>
+
+      <h3>GET /user/<em>:id</em></h3>
+      <div class="get-request" data-ref="/user/:id">
+        <form class="param">
+            <div class="form-group" data-ref="id">
+                <label for="fld-u03">User ID</label>
+                <input type="text" class="form-control" id="fld-u03" placeholder="8 hex digit">
+            </div>
+        </form>
+        <button type="button" class="btn btn-primary send">Send Request</button>
+        <button type="button" class="btn btn-warning clear d-none">Clear</button>
+        <div class="border border-primary p-2 mt-3 request d-none">
+          <div><code class="url text-primary"></code></div>
+        </div>
+        <pre class="border border-primary p-2 mt-1 response d-none"></pre>
+      </div>
+
+      <h3>DELETE /user/<em>:id</em></h3>
+      <div class="delete-request" data-ref="/user/:id">
+        <form class="param">
+            <div class="form-group" data-ref="id">
+                <label for="fld-u04">User ID</label>
+                <input type="text" class="form-control" id="fld-u04" placeholder="8 hex digit">
+            </div>
+        </form>
+        <button type="button" class="btn btn-primary send">Send Request</button>
+        <button type="button" class="btn btn-warning clear d-none">Clear</button>
+        <div class="border border-primary p-2 mt-3 request d-none">
+          <div><code class="url text-primary"></code></div>
+        </div>
+        <pre class="border border-primary p-2 mt-1 response d-none"></pre>
+      </div>
+
+      <h3>PATCH /user/<em>:id</em></h3>
+      <div class="patch-request" data-ref="/user/:id">
+        <form class="payload">
+            <div class="form-group" data-ref="id">
+                <label for="fld-u05">User ID</label>
+                <input type="text" class="form-control" id="fld-u05" placeholder="8 hex digit">
+            </div>
+            <div class="form-group" data-ref="name">
+                <label for="fld-u06">Name</label>
+                <input type="text" class="form-control" id="fld-u06" placeholder="Text string">
+            </div>
+            <div class="form-group" data-ref="email">
+                <label for="fld-u07">email</label>
+                <input type="text" class="form-control" id="fld-u07" placeholder="Text string">
+            </div>
+        </form>
+        <button type="button" class="btn btn-primary send">Send Request</button>
+        <button type="button" class="btn btn-warning clear d-none">Clear</button>
+        <div class="border border-primary p-2 mt-3 request d-none">
+          <div><code class="url text-primary"></code></div>
+          <div><code class="body text-info"></code></div>
+        </div>
+        <pre class="border border-primary p-2 mt-1 response d-none"></pre>
+      </div>
+    </div>
   </div>
+
   <div id="tabs-3">
-    <p>Project</p>
+    <!-- Project section -->
+
+    <div class="accordion">
+      <h3>GET /project</h3>
+      <div class="get-request" data-ref="/project">
+        <button type="button" class="btn btn-primary send">Send Request</button>
+        <button type="button" class="btn btn-warning clear d-none">Clear</button>
+        <div class="border border-primary p-2 mt-3 request d-none">
+          <div><code class="url text-primary"></code></div>
+        </div>
+        <pre class="border border-primary p-2 mt-1 response d-none"></pre>
+      </div>
+
+      <h3>POST /project</h3>
+      <div class="post-request" data-ref="/project">
+        <form class="payload">
+            <div class="form-group" data-ref="name">
+                <label for="fld-p01">Name</label>
+                <input type="text" class="form-control" id="fld-p01" placeholder="Text string">
+            </div>
+            <div class="form-group" data-ref="description">
+                <label for="fld-p02">Description</label>
+                <input type="text" class="form-control" id="fld-p02" placeholder="Text string">
+            </div>
+        </form>
+        <button type="button" class="btn btn-primary send">Send Request</button>
+        <button type="button" class="btn btn-warning clear d-none">Clear</button>
+        <div class="border border-primary p-2 mt-3 request d-none">
+          <div><code class="url text-primary"></code></div>
+          <div><code class="body text-info"></code></div>
+        </div>
+        <pre class="border border-primary p-2 mt-1 response d-none"></pre>
+      </div>
+
+      <h3>GET /project/<em>:id</em></h3>
+      <div class="get-request" data-ref="/project/:id">
+        <form class="param">
+            <div class="form-group" data-ref="id">
+                <label for="fld-p03">Project ID</label>
+                <input type="text" class="form-control" id="fld-p03" placeholder="8 hex digit">
+            </div>
+        </form>
+        <button type="button" class="btn btn-primary send">Send Request</button>
+        <button type="button" class="btn btn-warning clear d-none">Clear</button>
+        <div class="border border-primary p-2 mt-3 request d-none">
+          <div><code class="url text-primary"></code></div>
+        </div>
+        <pre class="border border-primary p-2 mt-1 response d-none"></pre>
+      </div>
+
+      <h3>DELETE /project/<em>:id</em></h3>
+      <div class="delete-request" data-ref="/project/:id">
+        <form class="param">
+            <div class="form-group" data-ref="id">
+                <label for="fld-p04">Project ID</label>
+                <input type="text" class="form-control" id="fld-p04" placeholder="8 hex digit">
+            </div>
+        </form>
+        <button type="button" class="btn btn-primary send">Send Request</button>
+        <button type="button" class="btn btn-warning clear d-none">Clear</button>
+        <div class="border border-primary p-2 mt-3 request d-none">
+          <div><code class="url text-primary"></code></div>
+        </div>
+        <pre class="border border-primary p-2 mt-1 response d-none"></pre>
+      </div>
+
+      <h3>PATCH /project/<em>:id</em></h3>
+      <div class="patch-request" data-ref="/project/:id">
+        <form class="payload">
+            <div class="form-group" data-ref="id">
+                <label for="fld-p05">Project ID</label>
+                <input type="text" class="form-control" id="fld-p05" placeholder="8 hex digit">
+            </div>
+            <div class="form-group" data-ref="name">
+                <label for="fld-p06">Name</label>
+                <input type="text" class="form-control" id="fld-p06" placeholder="Text string">
+            </div>
+            <div class="form-group" data-ref="description">
+                <label for="fld-p07">Description</label>
+                <input type="text" class="form-control" id="fld-p07" placeholder="Text string">
+            </div>
+        </form>
+        <button type="button" class="btn btn-primary send">Send Request</button>
+        <button type="button" class="btn btn-warning clear d-none">Clear</button>
+        <div class="border border-primary p-2 mt-3 request d-none">
+          <div><code class="url text-primary"></code></div>
+          <div><code class="body text-info"></code></div>
+        </div>
+        <pre class="border border-primary p-2 mt-1 response d-none"></pre>
+      </div>
+    </div>
   </div>
+
   <div id="tabs-4">
-    <p>Tree</p>
+    <!-- Tree section -->
+
+    <div class="accordion">
+      <h3>GET /tree</h3>
+      <div class="get-request" data-ref="/tree">
+        <button type="button" class="btn btn-primary send">Send Request</button>
+        <button type="button" class="btn btn-warning clear d-none">Clear</button>
+        <div class="border border-primary p-2 mt-3 request d-none">
+          <div><code class="url text-primary"></code></div>
+        </div>
+        <pre class="border border-primary p-2 mt-1 response d-none"></pre>
+      </div>
+
+      <h3>POST /tree</h3>
+      <div class="post-request" data-ref="/tree">
+        <form class="payload">
+            <div class="form-group" data-ref="enterpriseId">
+                <label for="fld-t01">Entreprise ID</label>
+                <input type="text" class="form-control" id="fld-t01" placeholder="8 hex digits">
+            </div>
+            <div class="form-group" data-ref="projectId">
+                <label for="fld-t02">Project ID</label>
+                <input type="text" class="form-control" id="fld-t02" placeholder="8 hex digits">
+            </div>
+            <div class="form-group" data-ref="userId">
+                <label for="fld-t03">User ID</label>
+                <input type="text" class="form-control" id="fld-t03" placeholder="8 hex digits">
+            </div>
+            <div class="form-group" data-ref="treeCount">
+                <label for="fld-t04">Tree count</label>
+                <input type="text" class="form-control" id="fld-t04">
+            </div>
+        </form>
+        <button type="button" class="btn btn-primary send">Send Request</button>
+        <button type="button" class="btn btn-warning clear d-none">Clear</button>
+        <div class="border border-primary p-2 mt-3 request d-none">
+          <div><code class="url text-primary"></code></div>
+          <div><code class="body text-info"></code></div>
+        </div>
+        <pre class="border border-primary p-2 mt-1 response d-none"></pre>
+      </div>
+
+      <h3>GET /tree/<em>:uuid</em></h3>
+      <div class="get-request" data-ref="/tree/:uuid">
+        <form class="param">
+            <div class="form-group" data-ref="uuid">
+                <label for="fld-t05">Tree UUID</label>
+                <input type="text" class="form-control" id="fld-t05" placeholder="32 hex digit">
+            </div>
+        </form>
+        <button type="button" class="btn btn-primary send">Send Request</button>
+        <button type="button" class="btn btn-warning clear d-none">Clear</button>
+        <div class="border border-primary p-2 mt-3 request d-none">
+          <div><code class="url text-primary"></code></div>
+        </div>
+        <pre class="border border-primary p-2 mt-1 response d-none"></pre>
+      </div>
+
+      <h3>DELETE /tree/<em>:uuid</em></h3>
+      <div class="delete-request" data-ref="/tree/:uuid">
+        <form class="param">
+            <div class="form-group" data-ref="uuid">
+                <label for="fld-t06">Tree UUID</label>
+                <input type="text" class="form-control" id="fld-t06" placeholder="32 hex digit">
+            </div>
+        </form>
+        <button type="button" class="btn btn-primary send">Send Request</button>
+        <button type="button" class="btn btn-warning clear d-none">Clear</button>
+        <div class="border border-primary p-2 mt-3 request d-none">
+          <div><code class="url text-primary"></code></div>
+        </div>
+        <pre class="border border-primary p-2 mt-1 response d-none"></pre>
+      </div>
+    </div>
   </div>
+
   <div id="tabs-5">
-    <p>Report</p>
+    <!-- Report section -->
+
+    <div class="accordion">
+      <h3>GET /report</h3>
+      <div class="get-request" data-ref="/report">
+        <button type="button" class="btn btn-primary send">Send Request</button>
+        <button type="button" class="btn btn-warning clear d-none">Clear</button>
+        <div class="border border-primary p-2 mt-3 request d-none">
+          <div><code class="url text-primary"></code></div>
+        </div>
+        <pre class="border border-primary p-2 mt-1 response d-none"></pre>
+      </div>
+
+      <h3>GET /report/enterprise/<em>:enterpriseId</em></h3>
+      <div class="get-request" data-ref="/report/:enterpriseId">
+        <form class="param">
+            <div class="form-group" data-ref="enterpriseId">
+                <label for="fld-r01">Enterprise ID</label>
+                <input type="text" class="form-control" id="fld-r01" placeholder="8 hex digit">
+            </div>
+        </form>
+        <button type="button" class="btn btn-primary send">Send Request</button>
+        <button type="button" class="btn btn-warning clear d-none">Clear</button>
+        <div class="border border-primary p-2 mt-3 request d-none">
+          <div><code class="url text-primary"></code></div>
+        </div>
+        <pre class="border border-primary p-2 mt-1 response d-none"></pre>
+      </div>
+
+      <h3>GET /report/enterprise/<b>:enterpriseId</b>/<b>:monthDate</b></h3>
+      <div class="get-request" data-ref="/report/:enterpriseId/:monthDate">
+        <form class="param">
+            <div class="form-group" data-ref="enterpriseId">
+                <label for="fld-r02">Enterprise ID</label>
+                <input type="text" class="form-control" id="fld-r02" placeholder="8 hex digit">
+            </div>
+            <div class="form-group" data-ref="monthDate">
+                <label for="fld-r03">Month date</label>
+                <input type="text" class="form-control" id="fld-r03" placeholder="YYYY-MM">
+            </div>
+        </form>
+        <button type="button" class="btn btn-primary send">Send Request</button>
+        <button type="button" class="btn btn-warning clear d-none">Clear</button>
+        <div class="border border-primary p-2 mt-3 request d-none">
+          <div><code class="url text-primary"></code></div>
+        </div>
+        <pre class="border border-primary p-2 mt-1 response d-none"></pre>
+      </div>
+    </div>
   </div>
+
 </div>
 
 </body>
