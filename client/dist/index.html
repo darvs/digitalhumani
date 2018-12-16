@@ -37,11 +37,104 @@
 </head>
 
 <body>
-  <h1>Digital Humani API</h1>
+  <h1 class="text-center display-1">Digital Humani API</h1>
 
-  <h2>Planter un arbre</h2>
-  <h2>Nombre d'arbres plantés au cours d'un mois</h2>
-  <h2>Rapport mensuel</h2>
+  <hr>
+
+  <h2 class="text-center">Plant a tree</h2>
+
+  <form class="m-5" id="plant-form">
+
+    <div class="form-group row select-enterprise">
+      <label for="select-enterprise" class="col-2 col-form-label">Enterprise</label>
+      <div class="input-group col">
+        <div class="input-group-prepend">
+          <span class="input-group-text">Name:</span>
+        </div>
+        <select class="custom-select select-enterprise"></select>
+        <div class="input-group-append">
+          <span class="input-group-text">ID:</span>
+          <span class="input-group-text id-info"></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label for="select-user" class="col-2 col-form-label">User</label>
+      <div class="input-group col">
+        <div class="input-group-prepend">
+          <span class="input-group-text">Name:</span>
+        </div>
+        <select class="custom-select" id="select-user"></select>
+        <div class="input-group-append">
+          <span class="input-group-text">ID:</span>
+          <span class="input-group-text" id="select-user-info"></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label for="select-project" class="col-2 col-form-label">Project</label>
+      <div class="input-group col">
+        <div class="input-group-prepend">
+          <span class="input-group-text">Name:</span>
+        </div>
+        <select class="custom-select" id="select-project"></select>
+        <div class="input-group-append">
+          <span class="input-group-text">ID:</span>
+          <span class="input-group-text" id="select-project-info"></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <button class="btn btn-primary btn-lg btn-block" type="submit">Submit</button>
+    </div>
+
+    <pre class="border border-primary p-2 mt-1 response d-none"></pre>
+
+  </form>
+
+  <hr>
+
+  <h2 class="text-center">Planted tree for a month</h2>
+
+  <form class="m-5" id="year-month-form">
+
+    <div class="form-group row select-enterprise">
+      <label for="select-enterprise" class="col-2 col-form-label">Enterprise</label>
+      <div class="input-group col">
+        <div class="input-group-prepend">
+          <span class="input-group-text">Name:</span>
+        </div>
+        <select class="custom-select select-enterprise"></select>
+        <div class="input-group-append">
+          <span class="input-group-text">ID:</span>
+          <span class="input-group-text id-info"></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label for="datepicker" class="col-2 col-form-label">Year-Month</label>
+      <input class="col year-month" id="datepicker" type="text">
+    </div>
+
+    <div class="form-group row">
+      <button class="btn btn-primary btn-lg btn-block" type="submit">Submit</button>
+    </div>
+
+    <pre class="border border-primary p-2 mt-1 response d-none"></pre>
+
+  </form>
+
+  <hr>
+
+  <h2 class="text-center text-muted">Monthly reporting</h2>
+
+  <div class="text-center text-muted">TODO...</div>
+
+  <hr>
 
 <div id="tabs">
   <ul>

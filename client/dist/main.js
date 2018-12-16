@@ -13,6 +13,143 @@ $(function() {
     collapsible: true,
   });
 
+  $('#plant-form').on("submit", function (e) {
+    e.preventDefault();
+
+    var $root = $(e.target);
+
+    var payload = {
+      enterpriseId: $root.find(".select-enterprise option:checked").val(),
+      projectId: $("#select-project option:checked").val(),
+      userId: $("#select-user option:checked").val(),
+    };
+
+    $
+      .ajax({
+        url: base + '/tree',
+        type: 'POST',
+        data: JSON.stringify(payload),
+        contentType:"application/json; charset=utf-8",
+        dataType: "json",
+      })
+      .done(function (data, textStatus, jqXHR) {
+        // Update HTML Response feedback
+        $root.find('.response')
+          .html(JSON.stringify(data, null, 2))
+          .removeClass('bg-warning')
+          .addClass('bg-white');
+      })
+      .fail(function (jqXHR, textStatus, error) {
+        // Update HTML Response feedback
+        $root.find('.response')
+          .html(JSON.stringify(jqXHR, null, 2))
+          .removeClass('bg-white')
+          .addClass('bg-warning');
+      })
+      .always(function () {
+        // Show HTML Response feedback
+        $root.find('.response').removeClass('d-none');
+      });
+  });
+
+  // Init 'Enterprise' Select
+  $
+    .get(base + '/enterprise')
+    .done(function (data) {
+      $('#select-enterprise')
+        .empty()
+        .append('<option selected>Select Enterprise ...</option>')
+        .append(data.map(x => `<option value="${x.id}">${x.name}</option>`))
+        .click(function () {
+          $x = $("#select-enterprise option:checked")
+          $('#select-enterprise-info').html($x.html() === $x.val() ? '' : $x.val());
+        })
+    })
+
+  // Init 'User' Select
+  $
+    .get(base + '/user')
+    .done(function (data) {
+      $('#select-user')
+        .empty()
+        .append('<option selected>Select User ...</option>')
+        .append(data.map(x => `<option value="${x.id}">${x.name}</option>`))
+        .click(function () {
+          $x = $("#select-user option:checked")
+          $('#select-user-info').html($x.html() === $x.val() ? '' : $x.val());
+        })
+    })
+
+  // Init 'Project' Select
+  $
+    .get(base + '/project')
+    .done(function (data) {
+      $('#select-project')
+        .empty()
+        .append('<option selected>Select Project ...</option>')
+        .append(data.map(x => `<option value="${x.id}">${x.name}</option>`))
+        .click(function () {
+          $x = $("#select-project option:checked")
+          $('#select-project-info').html($x.html() === $x.val() ? '' : $x.val());
+        })
+    })
+
+  // Form : Tree count per Year/Month
+  $('#year-month-form').on("submit", function (e) {
+    e.preventDefault();
+
+    var $root = $(e.target);
+
+    var enterpriseId = $root.find(".select-enterprise option:checked").val();
+    var yearMonth = $root.find(".year-month").val();
+
+    $
+      .get(`${base}/enterprise/${enterpriseId}/treeCount/${yearMonth}`)
+      .done(function (data, textStatus, jqXHR) {
+        // Update HTML Response feedback
+        $root.find('.response')
+          .html(JSON.stringify(data, null, 2))
+          .removeClass('bg-warning')
+          .addClass('bg-white');
+      })
+      .fail(function (jqXHR, textStatus, error) {
+        // Update HTML Response feedback
+        $root.find('.response')
+          .html(JSON.stringify(jqXHR, null, 2))
+          .removeClass('bg-white')
+          .addClass('bg-warning');
+      })
+      .always(function () {
+        // Show HTML Response feedback
+        $root.find('.response').removeClass('d-none');
+      });
+  });
+
+  // Init 'Enterprise' Select
+  $
+    .get(base + '/enterprise')
+    .done(function (data) {
+      $('.select-enterprise')
+        .find('select')
+        .empty()
+        .append('<option selected>Select Enterprise ...</option>')
+        .append(data.map(x => `<option value="${x.id}">${x.name}</option>`))
+        .click(function (ev) {
+          var $select = $(ev.currentTarget);
+          var $idInfo = $select.next().find('.id-info');
+
+          $x = $select.find("option:checked")
+          $idInfo.html($x.html() === $x.val() ? '' : $x.val());
+        })
+    })
+
+  // Init Year/Month picker
+  $("#datepicker").datepicker({
+    dateFormat: 'yy-mm',
+    numberOfMonths: [ 1, 3 ],
+    showWeek: false,
+  })
+
   doGet = doVerb.bind(null, 'GET');
   doDelete = doVerb.bind(null, 'DELETE');
   doPost = doVerbWithPayload.bind(null, 'POST');
