@@ -209,7 +209,7 @@ app.get('/tree/:uuid', (req, res) => {
                     if (result.Item) {
                         res.json(result.Item)
                     } else {
-                        res.status(404).json({message: `No Tree itme with uuid "${uuid}" found`})
+                        res.status(404).json({message: `No Tree item with uuid "${uuid}" found`})
                     }
                 }
             }
