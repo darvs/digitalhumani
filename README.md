@@ -1,5 +1,16 @@
 # Digital Humani API
 
+BackEnd is mangage by `serverless` using
+
+- Lamda (processing in JavaScript)
+- DynamoDB (Data persistency)
+- API Gateway (manage by serverless)
+
+FrontEnd is a single HTML page (apitest.html) using
+
+- JQuery
+- Bootstrap
+
 ## Install Node.js
 
 First, install nvm as describe here:
@@ -28,15 +39,20 @@ FIXME: Do load test to validate DynamoDB choice
     > sls deploy           # Deploy backend (Lambda and DynamoDB)
     > sls client deploy    # Deploy frontend (a Web page on S3)
 
-## Try backend
+## Try BackEnd
 
     > export BASE="https://g5lkwar2r1.execute-api.ca-central-1.amazonaws.com/dev"
     > curl -H "Content-Type: application/json" -X POST ${BASE}/enterprise -d '{"name": "My shop", "contact": "John"}'
     > curl -X GET ${BASE}/enterprise/abcd1234
 
-## Try frontend
+## Try FrontEnd
 
 Go to http://digitalhumani.com.s3-website.ca-central-1.amazonaws.com/index.html.
+
+## Install and config awscli
+
+    > sudo snap install aws-cli --classic
+    > aws configure
 
 ## Fixture
 
@@ -45,26 +61,12 @@ To init DynamoDB table with some fixture
     > cd fixture
     > ./go.sh
 
-## Offline Testing
+## Offline setup
 
     > sls offline start
     > export BASE="http://localhost:3000"
     > curl -H "Content-Type: application/json" -X POST ${BASE}/enterprise -d '{"name": "My shop", "contact": "John"}'
     > curl -X GET ${BASE}/enterprise/abcd1234
-
-## Toolchain planning
-
-Dev tools: Node.js, git, (Suggestion: Visual Studio Code [editor], zsh [shell])
-
-Frontend: HTML Page with JQuery and Bootstrap
-
-Backend: Lamda (processing in JavaScript), DynamoDB (Data persistency), API Gateway (manage by serverless)
-
-Backend management tool: serverless, awscli (sudo snap install AWS CLI --classic)
-
-TODO - Documentation: Swagger, Postman collection
-
-TODO - Testing: JEST, Pupperter
 
 ### API Route
 
@@ -83,15 +85,6 @@ TODO: Allow POST to work with contentType: 'application/x-www-form-urlencoded' o
 
 -----
 
-✓ [GET] /user
-
-✓ [POST] /user {name: '', email: '', phone: '' }
-✓ [GET] /user/:id
-✓ [DELETE] /user/:id
-✓ [PATCH] /user/:id {...}
-
------
-
 ✓ [GET] /project
 
 ✓ [POST] /project {name: '', description: '' }
@@ -103,7 +96,7 @@ TODO: Allow POST to work with contentType: 'application/x-www-form-urlencoded' o
 
 ✓ [GET] /tree
 
-✓ [POST] /tree {enterpriseId: '', projectId: '', userId: '', treeCount: 1 }
+✓ [POST] /tree {enterpriseId: '', projectId: '', user: '', treeCount: 1 }
 ✓ [GET] /tree/:uuid
 ✓ [DELETE] /tree/:uuid
 

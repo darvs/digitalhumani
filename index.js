@@ -14,7 +14,7 @@ const { v4 } = require('uuid'); // ex. '3a017fc5-4f50-4db9-b0ce-4547ba0a1bfd' (u
 
 const app = express()
 
-const { ENTERPRISE_TABLE, PROJECT_TABLE, USER_TABLE, TREE_TABLE, REPORT_TABLE } = process.env
+const { ENTERPRISE_TABLE, PROJECT_TABLE, TREE_TABLE, REPORT_TABLE } = process.env
 
 const dynamoDb = new AWS.DynamoDB.DocumentClient()
 
@@ -25,9 +25,8 @@ app.get('/', (req, res) => {
     res.send('Welcome to Digital Humani')
 })
 
-// FIXME: For tree creation, validate existence of userId, projectId and
-// enterpriseId. For enterpriseId we should use credential to infer correct
-// enterpriseId.
+// FIXME: For tree creation, validate existence of projectId and enterpriseId.
+// FIXME: For enterpriseId we should use credential to infer correct enterpriseId.
 
 // ------------------------------------------------------------------------------
 // report (FIXME)
@@ -160,15 +159,15 @@ app.get('/tree', (req, res) => {
 })
 
 app.post('/tree', (req, res) => {
-    const { enterpriseId, projectId, userId } = req.body // Required field
+    const { enterpriseId, projectId, user } = req.body // Required field
     const treeCount = req.body.hasOwnProperty('treeCount') ? req.body.treeCount : 1 // Optional field, defaut to 1
 
     if (typeof enterpriseId !== 'string' || !enterpriseId.match(/^[0-9a-f]{8}$/)) {
         res.status(400).json({message: `The "enterpriseId" must be 8 digits hex string. Got "${enterpriseId}" instead.`})
     } else if (typeof projectId !== 'string' || !projectId.match(/^[0-9a-f]{8}$/)) {
         res.status(400).json({message: `The "projectId" must be 8 digits hex string. Got "${projectId}" instead.`})
-    } else if (typeof userId !== 'string' || !userId.match(/^[0-9a-f]{8}$/)) {
-        res.status(400).json({message: `The "userId" must be 8 digits hex string. Got "${userId}" instead.`})
+    } else if (typeof user !== 'string' || !user.length) {
+        res.status(400).json({message: `The "user" must be a non empty string. Got "${user}" instead.`})
     } else if (typeof treeCount !== 'number') {
         res.status(400).json({message: `The "treeCount" must be a number. Got "${treeCount}" instead.`})
     } else {
@@ -177,7 +176,7 @@ app.post('/tree', (req, res) => {
         const uuid = v4()
         const created = new Date().toISOString() // Now
 
-        const Item = { uuid, created, treeCount, enterpriseId, projectId, userId }
+        const Item = { uuid, created, treeCount, enterpriseId, projectId, user }
 
         dynamoDb.put(
             { TableName, Item },
@@ -356,143 +355,6 @@ app.patch('/project/:id', (req, res) => {
         dynamoDb.update(
             {
                 TableName: PROJECT_TABLE,
-                Key: { id },
-                UpdateExpression,
-                ExpressionAttributeNames,
-                ExpressionAttributeValues,
-                ReturnValues: 'UPDATED_NEW',
-            },
-            (error, data) => {
-                if (error) {
-                    log(error)
-                    res.status(400).json(error)
-                } else {
-                    res.json(data)
-                }
-            }
-        )
-    }
-})
-
-// ------------------------------------------------------------------------------
-// User
-// ------------------------------------------------------------------------------
-app.get('/user', (req, res) => {
-    dynamoDb.scan(
-        { TableName: USER_TABLE },
-        (error, data) => {
-            if (error) {
-                log(error)
-                res.status(400).json({error, message: `Can not list User.`})
-            } else {
-                res.json(data.Items)
-            }
-        }
-    )
-})
-
-app.post('/user', (req, res) => {
-    const { name, email} = req.body
-
-    if (typeof name !== 'string') {
-        res.status(400).json({message: `The "name" must be a string. Got "${name}" instead.`})
-    } else if (typeof email !== 'string') {
-        res.status(400).json({message: `The "email" must be a string. Got "${email}" instead.`})
-    } else {
-        const TableName = USER_TABLE
-
-        const id = v4().split('-')[0]
-        const created = new Date().toISOString() // Now
-
-        const Item = { id, created, name, email }
-
-        dynamoDb.put(
-            { TableName, Item },
-            (error) => {
-                if (error) {
-                    log(error)
-                    res.status(400).json({error, message: `Can not create user.`})
-                } else {
-                    res.json(Item)
-                }
-            }
-        )
-    }
-})
-
-app.get('/user/:id', (req, res) => {
-    const id = req.params.id.toLowerCase()
-
-    if (typeof id !== 'string' || !id.match(/^[0-9a-f]{8}$/)) {
-        res.status(400).json({message: `The "id" must be 8 hex digit string. Got "${id}" instead.`})
-    } else {
-        dynamoDb.get(
-            { TableName: USER_TABLE, Key: { id } },
-            (error, result) => {
-                if (error) {
-                    log(error)
-                    res.status(400).json({error, message: `Can not get User id "${id}"`})
-                } else {
-                    if (result.Item) {
-                        res.json(result.Item)
-                    } else {
-                        res.status(404).json({message: `No User id "${id}" found`})
-                    }
-                }
-            }
-        )
-    }
-})
-
-app.delete('/user/:id', (req, res) => {
-    const id = req.params.id.toLowerCase()
-
-    if (typeof id !== 'string' || !id.match(/^[0-9a-f]{8}$/)) {
-        res.status(400).json({message: `The "id" must be 8 hex digit string. Got "${id}" instead.`})
-    } else {
-        dynamoDb.delete(
-            { TableName: USER_TABLE, Key: { id } },
-            (error, data) => {
-                if (error) {
-                    log(error)
-                    res.status(400).json({error, message: `Can not delete User id "${id}"`})
-                } else {
-                    res.json(data)
-                }
-            }
-        )
-    }
-})
-
-app.patch('/user/:id', (req, res) => {
-    const id = req.params.id.toLowerCase()
-    const body = req.body
-
-    if (typeof id !== 'string' || !id.match(/^[0-9a-f]{8}$/)) {
-        res.status(400).json({message: `The "id" must be 8 hex digit string. Got "${id}" instead.`})
-    } else if (!body) {
-        res.status(400).json({message: `Missing data payload.`})
-    } else {
-        body.updated = new Date().toISOString() // Now
-
-        // "set #n = :n"
-        const UpdateExpression = 'SET ' + Object.keys(body).map(x => `#${x[0]} = :${x[0]}`).join()
-
-        // { "#n": "name" }
-        const ExpressionAttributeNames = Object
-            .keys(body)
-            .map(x => ({ [`#${x[0]}`] : x }))
-            .reduce((x, acc) => Object.assign(acc, x), {})
-
-        // { ":n": "John" }
-        const ExpressionAttributeValues = Object
-            .keys(body)
-            .map(x => ({ [`:${x[0]}`] : body[x] }))
-            .reduce((x, acc) => Object.assign(acc, x), {})
-
-        dynamoDb.update(
-            {
-                TableName: USER_TABLE,
                 Key: { id },
                 UpdateExpression,
                 ExpressionAttributeNames,

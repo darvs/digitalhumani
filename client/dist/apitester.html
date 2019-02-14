@@ -60,20 +60,6 @@
     </div>
 
     <div class="form-group row">
-      <label for="select-user" class="col-2 col-form-label">User</label>
-      <div class="input-group col">
-        <div class="input-group-prepend">
-          <span class="input-group-text">Name:</span>
-        </div>
-        <select class="custom-select" id="select-user"></select>
-        <div class="input-group-append">
-          <span class="input-group-text">ID:</span>
-          <span class="input-group-text" id="select-user-info"></span>
-        </div>
-      </div>
-    </div>
-
-    <div class="form-group row">
       <label for="select-project" class="col-2 col-form-label">Project</label>
       <div class="input-group col">
         <div class="input-group-prepend">
@@ -84,6 +70,16 @@
           <span class="input-group-text">ID:</span>
           <span class="input-group-text" id="select-project-info"></span>
         </div>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label for="user" class="col-2 col-form-label">User</label>
+      <div class="input-group col">
+        <div class="input-group-prepend">
+          <span class="input-group-text">Name:</span>
+        </div>
+        <input type="text" class="form-control" id="user" placeholder="Text string">
       </div>
     </div>
 
@@ -117,7 +113,12 @@
 
     <div class="form-group row">
       <label for="datepicker" class="col-2 col-form-label">Year-Month</label>
-      <input class="col year-month" id="datepicker" type="text">
+      <div class="input-group col">
+        <div class="input-group-prepend">
+          <span class="input-group-text">Date:</span>
+        </div>
+        <input type="text" class="form-control year-month" id="datepicker">
+      </div>
     </div>
 
     <div class="form-group row">
@@ -139,7 +140,6 @@
 <div id="tabs">
   <ul>
     <li><a href="#tabs-1">Enterprise</a></li>
-    <li><a href="#tabs-2">User</a></li>
     <li><a href="#tabs-3">Project</a></li>
     <li><a href="#tabs-4">Tree</a></li>
     <li><a href="#tabs-5">Report</a></li>
@@ -246,100 +246,6 @@
             <div class="form-group" data-ref="contact.name">
                 <label for="fld-e07">Contact Name</label>
                 <input type="text" class="form-control" id="fld-e07" placeholder="Text string">
-            </div>
-        </form>
-        <button type="button" class="btn btn-primary send">Send Request</button>
-        <button type="button" class="btn btn-warning clear d-none">Clear</button>
-        <div class="border border-primary p-2 mt-3 request d-none">
-          <div><code class="url text-primary"></code></div>
-          <div><code class="body text-info"></code></div>
-        </div>
-        <pre class="border border-primary p-2 mt-1 response d-none"></pre>
-      </div>
-    </div>
-  </div>
-
-  <div id="tabs-2">
-    <!-- User section -->
-
-    <div class="accordion">
-      <h3>GET /user</h3>
-      <div class="get-request" data-ref="/user">
-        <button type="button" class="btn btn-primary send">Send Request</button>
-        <button type="button" class="btn btn-warning clear d-none">Clear</button>
-        <div class="border border-primary p-2 mt-3 request d-none">
-          <div><code class="url text-primary"></code></div>
-        </div>
-        <pre class="border border-primary p-2 mt-1 response d-none"></pre>
-      </div>
-
-      <h3>POST /user</h3>
-      <div class="post-request" data-ref="/user">
-        <form class="payload">
-            <div class="form-group" data-ref="name">
-                <label for="fld-u01">Name</label>
-                <input type="text" class="form-control" id="fld-u01" placeholder="Text string">
-            </div>
-            <div class="form-group" data-ref="email">
-                <label for="fld-u02">email</label>
-                <input type="text" class="form-control" id="fld-u02" placeholder="Text string">
-            </div>
-        </form>
-        <button type="button" class="btn btn-primary send">Send Request</button>
-        <button type="button" class="btn btn-warning clear d-none">Clear</button>
-        <div class="border border-primary p-2 mt-3 request d-none">
-          <div><code class="url text-primary"></code></div>
-          <div><code class="body text-info"></code></div>
-        </div>
-        <pre class="border border-primary p-2 mt-1 response d-none"></pre>
-      </div>
-
-      <h3>GET /user/<em>:id</em></h3>
-      <div class="get-request" data-ref="/user/:id">
-        <form class="param">
-            <div class="form-group" data-ref="id">
-                <label for="fld-u03">User ID</label>
-                <input type="text" class="form-control" id="fld-u03" placeholder="8 hex digit">
-            </div>
-        </form>
-        <button type="button" class="btn btn-primary send">Send Request</button>
-        <button type="button" class="btn btn-warning clear d-none">Clear</button>
-        <div class="border border-primary p-2 mt-3 request d-none">
-          <div><code class="url text-primary"></code></div>
-        </div>
-        <pre class="border border-primary p-2 mt-1 response d-none"></pre>
-      </div>
-
-      <h3>DELETE /user/<em>:id</em></h3>
-      <div class="delete-request" data-ref="/user/:id">
-        <form class="param">
-            <div class="form-group" data-ref="id">
-                <label for="fld-u04">User ID</label>
-                <input type="text" class="form-control" id="fld-u04" placeholder="8 hex digit">
-            </div>
-        </form>
-        <button type="button" class="btn btn-primary send">Send Request</button>
-        <button type="button" class="btn btn-warning clear d-none">Clear</button>
-        <div class="border border-primary p-2 mt-3 request d-none">
-          <div><code class="url text-primary"></code></div>
-        </div>
-        <pre class="border border-primary p-2 mt-1 response d-none"></pre>
-      </div>
-
-      <h3>PATCH /user/<em>:id</em></h3>
-      <div class="patch-request" data-ref="/user/:id">
-        <form class="payload">
-            <div class="form-group" data-ref="id">
-                <label for="fld-u05">User ID</label>
-                <input type="text" class="form-control" id="fld-u05" placeholder="8 hex digit">
-            </div>
-            <div class="form-group" data-ref="name">
-                <label for="fld-u06">Name</label>
-                <input type="text" class="form-control" id="fld-u06" placeholder="Text string">
-            </div>
-            <div class="form-group" data-ref="email">
-                <label for="fld-u07">email</label>
-                <input type="text" class="form-control" id="fld-u07" placeholder="Text string">
             </div>
         </form>
         <button type="button" class="btn btn-primary send">Send Request</button>
@@ -472,9 +378,9 @@
                 <label for="fld-t02">Project ID</label>
                 <input type="text" class="form-control" id="fld-t02" placeholder="8 hex digits">
             </div>
-            <div class="form-group" data-ref="userId">
-                <label for="fld-t03">User ID</label>
-                <input type="text" class="form-control" id="fld-t03" placeholder="8 hex digits">
+            <div class="form-group" data-ref="user">
+                <label for="fld-t03">User</label>
+                <input type="text" class="form-control" id="fld-t03" placeholder="text string">
             </div>
             <div class="form-group" data-ref="treeCount">
                 <label for="fld-t04">Tree count</label>

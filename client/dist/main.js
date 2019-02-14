@@ -20,8 +20,8 @@ $(function() {
 
     var payload = {
       enterpriseId: $root.find(".select-enterprise option:checked").val(),
+      user: $("#user").val(),
       projectId: $("#select-project option:checked").val(),
-      userId: $("#select-user option:checked").val(),
     };
 
     $
@@ -63,20 +63,6 @@ $(function() {
         .click(function () {
           $x = $("#select-enterprise option:checked")
           $('#select-enterprise-info').html($x.html() === $x.val() ? '' : $x.val());
-        })
-    })
-
-  // Init 'User' Select
-  $
-    .get(base + '/user')
-    .done(function (data) {
-      $('#select-user')
-        .empty()
-        .append('<option selected>Select User ...</option>')
-        .append(data.map(x => `<option value="${x.id}">${x.name}</option>`))
-        .click(function () {
-          $x = $("#select-user option:checked")
-          $('#select-user-info').html($x.html() === $x.val() ? '' : $x.val());
         })
     })
 

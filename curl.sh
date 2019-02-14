@@ -18,7 +18,6 @@ curl ${BASE}/tree
 curl ${BASE}/tree/08dfc2c7-6fd6-48ec-8b0e-93b1d76f98d3
 curl ${BASE}/tree/abc
 curl ${BASE}/tree
-curl ${BASE}/user
 
 curl --data -X POST ${BASE}/cie -d '{"cieId": "A1", "cieName": "XYZ"}'
 curl GET https://g5lkwar2r1.execute-api.ca-central-1.amazonaws.com/dev/cie/A1
@@ -29,8 +28,6 @@ curl -H "Content-Type: application/json" -X PATCH ${BASE}/enterprise -d '{"name"
 curl -H "Content-Type: application/json" -X PATCH ${BASE}/project/ac7aa2e7 -d '{"name": "Grand Canyon"}'
 curl -H "Content-Type: application/json" -X PATCH ${BASE}/project/ac7aa2e7 -d '{name: "Grand Canyon"}'
 curl -H "Content-Type: application/json" -X PATCH ${BASE}/project/ac7aa2e7 -d '{"name": "Iles Galapagos"}'
-curl -H "Content-Type: application/json" -X PATCH ${BASE}/user/63ac7494 -d '{"name": "Albert"}'
-curl -H "Content-Type: application/json" -X PATCH ${BASE}/user/9b34e43b -d '{"name": "Janis"}'
 curl -H "Content-Type: application/json" -X POST ${BASE}/cie -d '{"cieId": 1, "cieName": "XYZ"}'
 curl -H "Content-Type: application/json" -X POST ${BASE}/cie -d '{cieId: 1, cieName: "XYZ"}'
 curl -H "Content-Type: application/json" -X POST ${BASE}/cie -d '{"cieId": "23452346234652361", "cieName": "XYZ"}'
@@ -46,18 +43,14 @@ curl -H "Content-Type: application/json" -X POST ${BASE}/enterprise -d '{"name":
 curl -H "Content-Type: application/json" -X POST ${BASE}/proejct -d '{"name": "Amazonie #1", "description": "coconut et artre arbres exotique"}'
 curl -H "Content-Type: application/json" -X POST ${BASE}/project -d '{"name": "Amazonie #1", "description": "coconut et artre arbres exotique"}'
 curl -H "Content-Type: application/json" -X POST ${BASE}/tree -d '{"enterpriseId": "1234abcd", "projectId": "1234abcd"}'
-curl -H "Content-Type: application/json" -X POST ${BASE}/tree -d '{"enterpriseId": "1234abcd", "projectId": "1234abcd", "userId": "1234abcd"}'
+curl -H "Content-Type: application/json" -X POST ${BASE}/tree -d '{"enterpriseId": "1234abcd", "projectId": "1234abcd", "user": "Bob"}'
 curl -H "Content-Type: application/json" -X POST ${BASE}/tree -d '{"enterpriseId": "1234abcd", "projectId": "coconut et artre arbres exotique"}'
 curl -H "Content-Type: application/json" -X POST ${BASE}/tree -d '{"enterpriseId": "Amazonie #1", "projectId": "coconut et artre arbres exotique"}'
-curl -H "Content-Type: application/json" -X POST ${BASE}/user -d '{"name": "Jane", "email": "her@abc.net" }'
-curl -H "Content-Type: application/json" -X POST ${BASE}/user -d '{"name": "Jane", "email": "jane@me.com"}'
-curl -H "Content-Type: application/json" -X POST ${BASE}/user -d '{"name": "John", "email": "me@xyz.org" }'
 curl -X DELETE ${BASE}/enterprise/5c31d036
 curl -X DELETE ${BASE}/enterprise/9fd4bac7
 curl -X DELETE ${BASE}/project/c7823a59
 curl -X DELETE ${BASE}/tree/08dfc2c7-6fd6-48ec-8b0e-93b1d76f98d
 curl -X DELETE ${BASE}/tree/08dfc2c7-6fd6-48ec-8b0e-93b1d76f98d3
-curl -X DELETE ${BASE}/user/4263ac26
 curl -X GET ${BASE}/cie/A1
 curl -X GET ${BASE}/enterprise
 curl -X GET ${BASE}/enterprise/9fd4bac
@@ -69,5 +62,3 @@ curl -X GET ${BASE}/enterprise
 curl -X GET ${BASE}/project/c7823a59
 curl -X GET ${BASE}/project
 curl -X GET ${BASE}/tree
-curl -X GET ${BASE}/user/4263ac26
-curl -X GET ${BASE}/user

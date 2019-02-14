@@ -7,7 +7,6 @@ service: my-digitalhumani
 custom:
   enterpriseTable: '${self:provider.stage}-enterprise'
   projectTable: '${self:provider.stage}-project'
-  userTable: '${self:provider.stage}-user'
   treeTable: '${self:provider.stage}-tree'
   reportTable: '${self:provider.stage}-report'
   client:
@@ -30,14 +29,12 @@ provider:
      Resource:
       - { "Fn::GetAtt": [ "EnterpriseDynamoDBTable", "Arn" ] }
       - { "Fn::GetAtt": [ "ProjectDynamoDBTable", "Arn" ] }
-      - { "Fn::GetAtt": [ "UserDynamoDBTable", "Arn" ] }
       - { "Fn::GetAtt": [ "TreeDynamoDBTable", "Arn" ] }
       - { "Fn::GetAtt": [ "ReportDynamoDBTable", "Arn" ] }
       - "arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.stage}-*/index/*"
   environment:
     ENTERPRISE_TABLE: ${self:custom.enterpriseTable}
     PROJECT_TABLE: ${self:custom.projectTable}
-    USER_TABLE: ${self:custom.userTable}
     TREE_TABLE: ${self:custom.treeTable}
     REPORT_TABLE: ${self:custom.reportTable}
 
@@ -80,21 +77,6 @@ resources:
           ReadCapacityUnits: 1
           WriteCapacityUnits: 1
         TableName: ${self:custom.projectTable}
-    UserDynamoDBTable:
-      Type: 'AWS::DynamoDB::Table'
-      Properties:
-        AttributeDefinitions:
-         -
-          AttributeName: id
-          AttributeType: S
-        KeySchema:
-         -
-          AttributeName: id
-          KeyType: HASH
-        ProvisionedThroughput:
-          ReadCapacityUnits: 1
-          WriteCapacityUnits: 1
-        TableName: ${self:custom.userTable}
     TreeDynamoDBTable:
       Type: 'AWS::DynamoDB::Table'
       Properties:
