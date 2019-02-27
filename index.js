@@ -570,4 +570,37 @@ app.patch('/enterprise/:id', (req, res) => {
     }
 })
 
+// ------------------------------------------------------------------------------
+// Get Select (Toggle value in UI) for 'enterprise' and 'project'
+// ------------------------------------------------------------------------------
+
+app.get('/select', (req, res) => {
+    const result = {};
+
+    dynamoDb.scan({ TableName: ENTERPRISE_TABLE }, updateResult.bind(null, 'enterprise'))
+
+    dynamoDb.scan({ TableName: PROJECT_TABLE }, updateResult.bind(null, 'project'))
+
+    function updateResult (name, error, data) {
+        result[name] = data ? data.Items.map(({name, id}) => ({name, id})) : []
+
+        if (error) {
+            if (!result.error) {
+                result.error = {}
+            }
+            result.error[name] = error
+        }
+
+        const count = (result.error ? result.error.length : 0) + Object.keys(result).filter(x => x !== 'error').length
+
+        if (count === 2) {
+            if (result.error) {
+                res.status(400).json(result)
+            } else {
+                res.json(result)
+            }
+        }
+    }
+})
+
 module.exports.handler = serverless(app)

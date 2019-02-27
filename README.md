@@ -73,6 +73,8 @@ To init DynamoDB table with some fixture
 TODO: Add JSONP capability (`jsonp` or `callback` param)
 TODO: Allow POST to work with contentType: 'application/x-www-form-urlencoded' or 'multipart/form-data'
 
+✓ [GET] /select
+
 -----
 
 ✓ [GET] /enterprise

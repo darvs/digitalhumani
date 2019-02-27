@@ -52,31 +52,43 @@ $(function() {
       });
   });
 
-  // Init 'Enterprise' Select
+  // Init Select
   $
-    .get(base + '/enterprise')
+    .get(base + '/select')
     .done(function (data) {
+
+      // Enterprise
       $('#select-enterprise')
         .empty()
         .append('<option selected>Select Enterprise ...</option>')
-        .append(data.map(x => `<option value="${x.id}">${x.name}</option>`))
+        .append(data.enterprise.map(x => `<option value="${x.id}">${x.name}</option>`))
         .click(function () {
           $x = $("#select-enterprise option:checked")
           $('#select-enterprise-info').html($x.html() === $x.val() ? '' : $x.val());
         })
-    })
 
-  // Init 'Project' Select
-  $
-    .get(base + '/project')
-    .done(function (data) {
+      // Project
       $('#select-project')
         .empty()
         .append('<option selected>Select Project ...</option>')
-        .append(data.map(x => `<option value="${x.id}">${x.name}</option>`))
+        .append(data.project.map(x => `<option value="${x.id}">${x.name}</option>`))
         .click(function () {
           $x = $("#select-project option:checked")
           $('#select-project-info').html($x.html() === $x.val() ? '' : $x.val());
+        })
+
+      // Enterprise
+      $('.select-enterprise')
+        .find('select')
+        .empty()
+        .append('<option selected>Select Enterprise ...</option>')
+        .append(data.enterprise.map(x => `<option value="${x.id}">${x.name}</option>`))
+        .click(function (ev) {
+          var $select = $(ev.currentTarget);
+          var $idInfo = $select.next().find('.id-info');
+
+          $x = $select.find("option:checked")
+          $idInfo.html($x.html() === $x.val() ? '' : $x.val());
         })
     })
 
@@ -110,24 +122,6 @@ $(function() {
         $root.find('.response').removeClass('d-none');
       });
   });
-
-  // Init 'Enterprise' Select
-  $
-    .get(base + '/enterprise')
-    .done(function (data) {
-      $('.select-enterprise')
-        .find('select')
-        .empty()
-        .append('<option selected>Select Enterprise ...</option>')
-        .append(data.map(x => `<option value="${x.id}">${x.name}</option>`))
-        .click(function (ev) {
-          var $select = $(ev.currentTarget);
-          var $idInfo = $select.next().find('.id-info');
-
-          $x = $select.find("option:checked")
-          $idInfo.html($x.html() === $x.val() ? '' : $x.val());
-        })
-    })
 
   // Init Year/Month picker
   $("#datepicker").datepicker({
