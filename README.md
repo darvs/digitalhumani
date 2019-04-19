@@ -63,10 +63,21 @@ To init DynamoDB table with some fixture
 
 ## Offline setup
 
+In one terminal star a local lambda server
+
     > sls offline start
+
+NOTICE: This local lamda server is using the remote DynamoDB. All change to the database goes directly to AWS.
+
+In another terminal, reach the API. Here's some example.
+
     > export BASE="http://localhost:3000"
-    > curl -H "Content-Type: application/json" -X POST ${BASE}/enterprise -d '{"name": "My shop", "contact": "John"}'
-    > curl -X GET ${BASE}/enterprise/abcd1234
+
+    > curl -s -X POST ${BASE}/enterprise -d '{"name": "My shop", "contact": {"name": "John"}}' -H "Content-Type: application/json" 
+    > curl -s -X GET ${BASE}/enterprise/abcd1234
+    > curl -s ${BASE}/select | jq .
+    > curl -s ${BASE}/enterprise | jq .[].name
+
 
 ### API Route
 
