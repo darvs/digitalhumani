@@ -1,3 +1,5 @@
+'use strict'
+
 // Built-in
 const { log } = console
 
