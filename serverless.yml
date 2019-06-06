@@ -1,4 +1,5 @@
 plugins:
+ - serverless-dynamodb-local
  - serverless-offline
  - serverless-finch
 
@@ -11,6 +12,13 @@ custom:
   reportTable: '${self:provider.stage}-report'
   client:
       bucketName: digitalhumani.com
+  dynamodb:
+    stages:
+      - dev
+    #start:
+      #migrate: true
+    start:
+      dbPath: /tmp/
 
 provider:
   name: aws

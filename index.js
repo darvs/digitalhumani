@@ -18,7 +18,9 @@ const app = express()
 
 const { ENTERPRISE_TABLE, PROJECT_TABLE, TREE_TABLE, REPORT_TABLE } = process.env
 
-const dynamoDb = new AWS.DynamoDB.DocumentClient()
+//const dynamoDb = new AWS.DynamoDB.DocumentClient()
+const dynamoDbClient = require('serverless-dynamodb-client');
+const dynamoDb = dynamoDbClient.doc
 
 app.use(cors())
 app.use(bodyParser.json({strict: false}))

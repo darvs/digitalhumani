@@ -1,6 +1,7 @@
 
 // CONFIGURATION
-var base = "https://3ib0d53ao8.execute-api.ca-central-1.amazonaws.com/dev";
+//var base = "https://3ib0d53ao8.execute-api.ca-central-1.amazonaws.com/dev";
+var base = "http://localhost:3000";
 
 $(function() {
   $("#tabs").tabs({
@@ -68,7 +69,7 @@ $(function() {
         })
 
       // Project
-      $('#select-project')
+      $('#select-p3ib0d53ao8.execute-api.ca-central-1.amazonaws.com/deoroject')
         .empty()
         .append('<option selected>Select Project ...</option>')
         .append(data.project.map(x => `<option value="${x.id}">${x.name}</option>`))
