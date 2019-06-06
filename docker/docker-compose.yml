@@ -1,0 +1,24 @@
+version: "3"
+services:
+        serverless:
+                network_mode: host
+                build:
+                        context: ./serverless
+                ports:
+                        - 3000:3000
+                volumes:
+                        - ../:/app
+                environment:
+                        AWS_ACCESS_KEY_ID: "abc"
+                        AWS_SECRET_ACCESS_KEY: "xyz"
+        test:
+                image: nginx
+                ports:
+                        - 1337:80
+                volumes:
+                        - ../client/dist:/usr/share/nginx/html
+
+        dynamodb:
+                image: amazon/dynamodb-local
+                ports:
+                        - 8888:8000
